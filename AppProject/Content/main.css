@@ -1,0 +1,671 @@
+/*------------------------------
+=BASIC SETUP
+------------------------------*/
+
+/* Makeshift CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*============ Custom Font Face =============*/
+@font-face {
+    font-family: "myfont";
+    src: url("../fonts/Ubuntu-Regular.ttf") format('truetype');
+}
+
+
+/* Tell the browser to render HTML 5 elements as block */
+header, footer, section, aside, nav, article {
+    display: block;
+}
+
+body {
+    margin: 0 auto;
+    padding: 22px 0;
+    width: 940px;
+    font: 13px/22px Helvetica, Arial, sans-serif;
+    background: #F0F0F0;
+}
+
+h1, h2 {
+    font-size: 28px;
+    line-height: 44px;
+    padding: 22px 0;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 11px 0;
+}
+
+p {
+    padding-bottom: 22px;
+}
+
+.titlesytle {
+    text-shadow: 2px 2px;
+}
+
+
+
+/*------------------------------
+=NAVIGATION
+------------------------------*/
+
+nav {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    /*background: url("images/nav_background.png");*/
+    background: linear-gradient(grey,black);
+    */
+}
+
+    nav ul {
+        margin: 0 auto;
+        width: 940px;
+        list-style: none;
+    }
+
+        nav ul li {
+            float: left;
+        }
+
+            nav ul li a {
+                display: block;
+                margin-right: 20px;
+                width: 140px;
+                font-size: 14px;
+                line-height: 44px;
+                text-align: center;
+                text-decoration: none !important;
+                color: #fff;
+            }
+
+
+                nav ul li a:hover {
+                    color: #b4dc10;
+                }
+
+            nav ul li.selected a {
+                color: #2181FF
+            }
+
+
+
+#transDemo2 td.hover, #u_0_1 {
+    height: 30px;
+    width: 30px;
+    vertical-align: right;
+    text-align: right;
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -ms-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+}
+
+    #transDemo2 td.hover:hover #u_0_1:hover, #transDemo2 div.hover_effect {
+        -webkit-transform: rotate(720deg) scale(2,2);
+        -moz-transform: rotate(720deg) scale(2,2);
+        -ms-transform: rotate(720deg) scale(2,2);
+        transform: rotate(720deg) scale(2,2);
+    }
+
+
+#transDemo2 div {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -ms-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+}
+
+    #transDemo2 div:hover, #transDemo2 div.hover_effect {
+        -webkit-transform: rotate(720deg) scale(2,2);
+        -moz-transform: rotate(720deg) scale(2,2);
+        -ms-transform: rotate(720deg) scale(2,2);
+        transform: rotate(720deg) scale(2,2);
+    }
+
+
+
+
+
+/*------------------------------
+=INTRODUCTION
+------------------------------*/
+
+#intro {
+    position: relative;
+    margin-top: 66px;
+    padding: 44px;
+    /*background: #467612 url("images/intro_background.png") repeat-x;*/
+    background: linear-gradient(#b4dc10,#527f21);
+    /* Background-size not implemented yet */
+    -webkit-background-size: 100%;
+    -o-background-size: 100%;
+    -khtml-background-size: 100%;
+    /* Border-radius not implemented yet */
+    -moz-border-radius: 22px;
+    -webkit-border-radius: 22px;
+}
+
+    #intro h2, #intro p {
+        position: relative;
+        z-index: 9999;
+        width: 436px;
+    }
+
+    #intro h2 {
+        padding: 0 0 22px 0;
+        font-weight: normal;
+        color: #fff;
+    }
+
+    #intro p {
+        padding: 0;
+        color: #d9f499;
+    }
+
+    #intro img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 653px;
+        height: 100%;
+        /* Border-radius not implemented yet */
+        -moz-border-radius: 22px;
+        -webkit-border-radius: 22px;
+    }
+
+/*------------------------------
+=Searchbar
+------------------------------*/
+/*input[type=text] {
+    width: 100px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}*
+
+/* When the input field gets focus, change its width to 100% */
+#freetext {
+    width: 95%;
+}
+
+
+
+.searchb {
+    position: right;
+}
+
+
+
+/*------------------------------
+=CONTENT AREA AND SIDEBAR LAYOUT
+------------------------------*/
+
+#content {
+    display: table;
+}
+
+#mainContent {
+    display: table-cell;
+    width: 620px;
+    padding-right: 22px;
+}
+
+aside {
+    display: table-cell;
+    width: 300px;
+    background: url("images/sidebar_background.png") top left;
+}
+
+
+    /*------------------------------
+=SIDEBAR
+------------------------------*/
+    aside section {
+        margin: 50px 0 0 22px;
+        padding: 11px 22px;
+        /*background: url("images/sidebar_section_background.png") repeat-x;*/
+        background: linear-gradient(grey,white);
+        /* Border-radius not implemented yet */
+        -moz-border-radius: 11px;
+        -webkit-border-radius: 11px;
+    }
+
+        aside section ul {
+            margin: 0 0 0 22px;
+            list-style: none;
+        }
+
+            aside section ul li a {
+                display: block;
+                text-decoration: none;
+                color: #000;
+            }
+
+                aside section ul li a:hover {
+                    text-decoration: underline;
+                }
+
+/*------------------------------
+=BLOG POST
+------------------------------*/
+.blogPost header p, .blogPost header p a {
+    font-size: 14px;
+    font-style: italic;
+    color: #777;
+}
+
+    .blogPost header p a:hover {
+        text-decoration: none;
+        color: #000;
+    }
+
+.blogPost div {
+    /* Column-count not implemented yet */
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    /* Column-gap not implemented yet */
+    -moz-column-gap: 22px;
+    -webkit-column-gap: 22px;
+    font-family: myfont;
+}
+
+.blogPost img {
+    margin: 22px 0;
+    -webkit-box-shadow: 3px 3px 7px #777;
+}
+
+.blogPost video {
+    margin: 12px 0;
+    width: 100%;
+    height: auto;
+    -webkit-box-shadow: 3px 3px 7px #777;
+}
+
+/*------------------------------
+=COMMENTS
+------------------------------*/
+
+#comments {
+    margin-top: 21px;
+    padding-top: 22px;
+    border-top: 1px solid #d7d7d7;
+}
+
+    #comments article {
+        display: table;
+        padding: 22px;
+    }
+
+        #comments article:nth-child(odd) {
+            padding: 21px;
+            background: #E3E3E3;
+            border: 1px solid #d7d7d7;
+            -moz-border-radius: 11px;
+            -webkit-border-radius: 11px;
+        }
+
+        #comments article header {
+            display: table-cell;
+            width: 220px;
+            padding-right: 22px;
+        }
+
+            #comments article header a {
+                display: block;
+                font-weight: bold;
+                color: #000;
+            }
+
+                #comments article header a:hover {
+                    text-decoration: none;
+                }
+
+        #comments article p {
+            padding: 0;
+        }
+
+#mytextarea1 {
+    width: 300px !important;
+}
+
+
+/*------------------------------
+=COMMENT FORM
+------------------------------*/
+form {
+    margin-top: 21px;
+    padding-top: 22px;
+    border-top: 1px solid #d7d7d7;
+}
+
+    form p {
+        display: table;
+        margin-bottom: 22px;
+        padding: 0 22px;
+    }
+
+    form label {
+        display: table-cell;
+        width: 140px;
+        padding-right: 20px;
+        text-align: right;
+        font-weight: bold;
+        vertical-align: top;
+    }
+
+    form input[type="text"], form input[type="email"], form input[type="url"], #PublishedDate, #Password, #ConfirmPassword {
+        display: table-cell;
+        width: 300px;
+        border: 1px solid #d7d7d7;
+    }
+
+    form textarea {
+        width: 300px;
+        height: 100px;
+        border: 1px solid #d7d7d7;
+    }
+
+    form input[type="submit"], .PostComButton, .CommButton {
+        margin-left: 162px;
+        -webkit-transition: all 2s;
+        transition: all 2s;
+    }
+
+
+
+/*------------------------------
+=FOOTER
+------------------------------*/
+footer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: #222;
+}
+
+    footer div {
+        display: table;
+        margin: 0 auto;
+        padding: 44px 0;
+        width: 940px;
+        color: #777;
+    }
+
+        footer div section {
+            display: table-cell;
+            width: 300px;
+        }
+
+        footer div #about, footer div #blogroll {
+            padding-right: 20px;
+        }
+
+    footer h3 {
+        color: #FFF;
+    }
+
+    footer a {
+        color: #999;
+    }
+
+        footer a:hover {
+            color: #FFF;
+            text-decoration: none;
+        }
+
+    footer ul {
+        margin: 0 0 0 40px;
+        list-style: square;
+        color: #565656;
+    }
+
+        footer ul li a {
+            display: block;
+        }
+
+/*==========================MENU===================*/
+.menutable {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.menutr {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
+
+.menuth,
+.menutd {
+    padding: .625em;
+    text-align: center;
+}
+
+.menuth {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+media screen and (max-width: 600px) {
+    table
+
+{
+    border: 0;
+}
+
+.menuthread {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.menutr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+}
+
+.menutd {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+}
+
+td:before .menutd {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td:last-child .menutd {
+    border-bottom: 0;
+}
+
+/*================== Statistics Comments ================*/
+
+.axis path {
+    fill: none;
+    stroke: #999;
+    stroke-dasharray: 2 3;
+}
+
+.axis text {
+    font-size: 13px;
+    stroke: #222;
+}
+
+circle.tick {
+    fill: #f3f3f3;
+    stroke: #999;
+    stroke-dasharray: 2 3;
+}
+
+path.spiral {
+    fill: none;
+    stroke: #ee8d18;
+    stroke-width: 3px;
+}
+
+
+.tooltip {
+    background: #eee;
+    box-shadow: 0 0 5px #999999;
+    color: #333;
+    font-size: 12px;
+    left: 130px;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: 95px;
+    z-index: 10;
+    display: block;
+    opacity: 0;
+}
+
+
+/*==========================SEARCH=========================*/
+
+
+.dropdown1 .dropdown-lg1 .dropdown-menu1 {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+
+.input-group-btn1 .btn-group1 {
+    display: flex !important;
+}
+
+.btn-group1 .btn1 {
+    border-radius: 0;
+    margin-left: -1px;
+}
+
+    .btn-group1 .btn1:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+.btn-group1 .form-horizontal1 .btn1[type="submit"] {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.form-horizontal1 .form-group1 {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form-group1 .form-control1:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search1 {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    .dropdown.dropdown-lg1 {
+        position: static !important;
+    }
+
+        .dropdown.dropdown-lg1 .dropdown-menu1 {
+            min-width: 500px;
+        }
+}
+
+
+/*==================Dropdown meny================*/
+\ .dropdown-menu {
+    width: 300px !important;
+}
+
+
+/*======================= Transition ======================*/
+._inlineBlock _2tga _49ve {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -ms-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+}
+
+.inlineBlock _2tga _49ve:hover, .inlineBlock _2tga _49ve.hover_effect {
+    -webkit-transform: rotate(720deg) scale(2,2);
+    -moz-transform: rotate(720deg) scale(2,2);
+    -ms-transform: rotate(720deg) scale(2,2);
+    transform: rotate(720deg) scale(2,2);
+}
+
+
+/*================== Facebook CSS ===============*/
+
+/*-- Global Selectors --*/
+a {
+    color: #47649F;
+}
+
+body {
+    font-family: 'helvetica';
+}
+
+/*-- Bootstrap Override Style --*/
+
+
+/*-- Content Style --*/
+.post-footer-option li {
+    float: left;
+    margin-right: 50px;
+    padding-bottom: 15px;
+}
+
+    .post-footer-option li a {
+        color: #AFB4BD;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+.photo-profile {
+    border: 1px solid #DDD;
+}
+
+.anchor-username h4 {
+    font-weight: bold;
+}
+
+.anchor-time {
+    color: #ADB2BB;
+    font-size: 1.2rem;
+}
+
+.post-footer-comment-wrapper {
+    background-color: #F6F7F8;
+}

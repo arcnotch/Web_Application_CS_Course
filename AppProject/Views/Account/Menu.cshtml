@@ -1,0 +1,74 @@
+﻿@model IEnumerable<AppProject.Models.Post>
+
+@{
+    ViewBag.Title = "Menu";
+}
+@section styles {
+    <link href="@Url.Content("~/Content/menu.css")" rel="stylesheet" type="text/css" />
+}
+<!--Logged in page - User's menu-->
+<h2>Menu</h2>
+
+<div>
+    <table class="menutable">
+        <thread class="menuthread">
+            <tr class="menutr">
+                <th  class="menuth">
+                    Title
+                </th>
+                <th class="menuth">
+                    Written By
+                </th>
+                @if (Session["Username"].ToString() == "admin")
+                {//Only for admin user
+                <th class="menuth">
+                    Delete
+                </th>
+                }
+                <th class="menuth">
+                    Edit
+                </th>
+                <th class="menuth">
+                    Details
+                </th>
+                <th class="menuth">
+                    Edit Comments
+                </th>
+            </tr>
+        </thread>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="menutr">
+                    <td class="menutd">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td class="menutd">
+                        @Html.DisplayFor(modelItem => item.WrittenBy)
+                    </td>
+                    @if (Session["Username"].ToString() == "admin")
+                    {//Only for admin user
+                    <td class="menutd">
+                        
+                        @Html.ActionLink("Delete", "Delete/" + item.PostID)
+                    </td>
+                    }
+                    <td class="menutd">
+                        @Html.ActionLink("Edit", "Edit/" + item.PostID)
+                    </td>
+                    <td class="menutd">
+                        @Html.ActionLink("Details", "Details/" + item.PostID)
+                    </td>
+                    <td class="menutd">
+                        @Html.ActionLink("View Comments", "ViewComments/" + item.PostID)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Add a new post", "Create")
+    @Html.ActionLink("Logout", "Logout")
+
+</p>

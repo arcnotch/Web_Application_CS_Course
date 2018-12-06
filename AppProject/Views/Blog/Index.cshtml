@@ -1,0 +1,222 @@
+﻿@model IEnumerable<AppProject.Models.Post>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<head><link href="@Url.Content("~/Content/menu.css")" rel="stylesheet" type="text/css" /></head>
+
+<div class="container">
+    <div class="row"><!--Search form-->
+        <div id="filter-panel" class="collapse filter-panel">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <label class="filter-col" style="margin-right:0;" for="pref-perpage">Search filters:</label>
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="filter-col" style="margin-right:0;" for="pref-perpage">Authors:</label>
+                            <select id="pref-perpage" name="authorsearch" class="form-control">
+                                <option name="authorsearch" value="" selected>All</option>
+                                @foreach (var author in ViewBag.AuthorsList)
+                                {
+
+                                    <option name="authorsearch" value="@author.ToString()">@author.ToString()</option>
+                                }
+                            </select>
+                        </div> <!-- form search [author] -->
+                        <div class="form-group">
+                            <label class="filter-col" style="margin-right:0;" for="pref-search">Search:</label>
+                            <input name="searchString" type="text" class="form-control input-sm" id="pref-search">
+                        </div><!-- form search [words] -->
+                        <div class="form-group">
+                            <label class="filter-col" style="margin-right:0;" for="pref-orderby">Year:</label>
+                            <select name="yearsearch" id="pref-orderby" class="form-control">
+                                <option>2016</option>
+                                <option selected="selected">2017</option>
+                            </select>
+                        </div> <!-- form search [year] -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default filter-col">
+                                <span class="glyphicon glyphicon-record"></span> Save Settings
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-panel">
+            <span class="glyphicon glyphicon-cog"></span> Advanced Search
+        </button>
+    </div>
+</div>
+
+<!--Present the posts-->
+<div id="mainContent">
+    @foreach (var item in Model)
+    {
+        <section>
+            <form>
+                <article class="blogPost">
+                    <header>
+                        <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                        <p>Posted on @Html.DisplayFor(modelItem => item.PublishedDate) by <a href="http://@Html.DisplayFor(modelItem => item.Website)">@Html.DisplayFor(modelItem => item.WrittenBy)</a> - <a href="#ButtonComments-@item.PostID">@Html.DisplayFor(modelItem => item.Comments.Count) comments</a></p>
+                    </header>
+                    <div>
+                        @{string[] perags = item.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                            //This function split the post text by /n and present it:
+                            //{txt1, image(if true, txt2, video(if true), txt3, txt4,... txtN)}
+                            bool vid = true;
+                            bool pic = true;
+
+
+                            foreach (string per in perags)
+                            {
+                                if (pic == true)
+                                {
+                                    <p>@Html.DisplayFor(modelItem => per)</p>
+                                    if (item.IsImage == true)
+                                    {
+                                        <img src="@Html.DisplayFor(modelItem => item.Image)" height="200" width="300"/>
+                                    }
+                                    pic = false;
+                                    continue;
+                                }
+                                if (vid == true)
+                                {
+                                    <p>@Html.DisplayFor(modelItem => per)</p>
+                                    if (item.IsVideo == true)
+                                    {
+                                        <video controls="controls">
+                                            <source src="@Html.DisplayFor(modelItem => item.Video)" type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    }
+                                    vid = false;
+                                    continue;
+                                }
+                                <p>@Html.DisplayFor(modelItem => per)</p>
+                            }
+                        }
+
+
+                    </div>
+                </article>
+            </form>
+        </section>
+        
+        <script type="text/javascript">
+    $(document).ready(function () {
+        $("#ButtonComments-@item.PostID").click(function () {
+            $("#Comments-@item.PostID").toggle()
+        })
+    })
+        </script>
+        <!--Click to show comments-->
+        <button type="button" class="btn btn-default CommButton" id="ButtonComments-@item.PostID">Show Comments</button>
+
+        <div id="Comments-@item.PostID" style="display:none">
+            <section id="comments">
+                <h3>Comments</h3>
+                @foreach (var comment in item.Comments)
+                {
+                    <article>
+                        <header>
+                            <a href="@Html.DisplayFor(modelItem => comment.Website)">@Html.DisplayFor(modelItem => comment.WrittenBy)</a> on <time> @Html.DisplayFor(modelItem => comment.PublishDate)</time>
+                        </header>
+                        <h4>@Html.DisplayFor(modelItem => comment.Title)</h4>
+                        <p>@Html.DisplayFor(modelItem => comment.Text)<p>
+                    </article>
+                }
+                <here></here> <!-- The new post enters here -->
+
+            </section>
+            <script type="text/javascript">
+    $(document).ready(function () {
+        $("#ButtonPostComment-@item.PostID").click(function () {
+            $("#PostComment-@item.PostID").toggle()
+        })
+    })
+            </script>
+
+            <!--Click to show comment post form-->
+            <button type="button" class="btn btn-default PostComButton" id="ButtonPostComment-@item.PostID">Write a Comment</button>
+            <section>
+                <div id="PostComment-@item.PostID" style="display:none">
+                    <form id="formCOmmentponst-@item.PostID" action="Blog/AddComment">
+                        @Html.AntiForgeryToken()
+                        <h3>Post a comment</h3>
+                        <input type="hidden" value="@item.Comments.Count" name="CommentID" />
+                        <input type="hidden" value="@item.PostID" name="PostID" />
+                        <p>
+                            <label for="WrittenBy">Name</label>
+                            <input name="WrittenBy" id="WrittenBy-@item.PostID" class="form-control" type="text" required />
+                        </p>
+                        <p>
+                            <label for="Title">Title</label>
+                            <input name="Title" id="Title-@item.PostID" class="form-control" type="text" required />
+                        </p>
+                        <p>
+                            <label for="Website">Website</label>
+                            <input name="Website" id="Website-@item.PostID" class="form-control" type="url" required />
+                        </p>
+                        <a><!--Get clients time and date when the submit button is pressed-->
+                            <input name="PublishDate" id="PublishDate-@item.PostID" type="hidden" required />
+                            <script type="text/javascript">
+                    function getDate() {
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1; //January is 0!
+                        var yyyy = today.getFullYear();
+                        var hh = today.getHours();
+                        var mins = today.getMinutes();
+                        var secs = today.getSeconds();
+                        if (dd < 10) { dd = '0' + dd } if (mm < 10) { mm = '0' + mm } if (hh<10){hh='0'+hh} if (mins<10){mins='0'+mins} if (secs<10){secs='0'+secs}
+                        today = mm + "/" + dd + "/" + yyyy + " " + hh + ":" + mins + ":" + secs;
+
+                        document.getElementById("PublishDate-@item.PostID").value = today;
+                    }
+
+                    //call getDate() when loading the page
+                    getDate();
+                            </script>
+                        </a>
+                        <p>
+                            <label for="Text">Comment</label>
+                            <textarea name="Text" id="Text-@item.PostID" xml:id="Text" class="form-control" rows="5" required></textarea>
+                        </p>
+                        <button class="btn btn-default PostComButton" value="Post comment" id="commnetPost-@item.PostID" onclick=getDate() />Post a Comment
+                    </form>
+
+                    <!-- Post a comment with Ajax -->
+                    <script type='text/javascript'>
+                        /* attach a submit handler to the form */
+                        $("#formCOmmentponst-@item.PostID").submit(function (event) {
+
+                            /* stop form from submitting normally */
+                            event.preventDefault();
+
+                            /* get the action attribute from the <form action=""> element */
+                            var $form = $(this),
+                                url = $form.attr('action');
+
+                            /* Send the data using post with elements*/
+                            var posting = $.post(url, { CommentID: @item.Comments.Count, PostID: @item.PostID, WrittenBy: $("#WrittenBy-@item.PostID").val(), Title: $("#Title-@item.PostID").val(), Website: $("#Website-@item.PostID").val(), Text: $("#Text-@item.PostID").val()});
+
+                            /* Alerts the results */
+                            posting.done(function (data) {
+                                $('#Comments-@item.PostID here').append("<article><header><a href=" + $("#Website-@item.PostID").val() + ">" + $("#WrittenBy-@item.PostID").val() + "</a> on Now </header><h4>" + $("#Title-@item.PostID").val() + "</h4><p>" + $("#Text-@item.PostID").val() + "<p></article>");
+                                /* Add the data from the form to the comments list*/
+                                var button = document.getElementById('ButtonPostComment-@item.PostID');
+                                button.style.display = 'none';
+                                $("#formCOmmentponst-@item.PostID").fadeOut();
+                                alert(data); /*===== Alert Classification get from the server by Naive Bayes algorithm ====*/
+
+                            });
+                        });
+                    </script>
+
+
+                    </div>
+</section>
+        </div>
+                            }
+</div>
+

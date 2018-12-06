@@ -1,0 +1,91 @@
+﻿@model IEnumerable<AppProject.Models.Fan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <!--Search form-->
+        <div id="filter-panel" class="collapse filter-panel">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="col-md-6" style="margin-right:0;" for="pref-search">Search by name:</label>
+                            <input name="Namesearch" type="text" class="form-control input-sm col-md-6" id="pref-search">
+                        </div><!-- form group [search by name] -->
+                        <div class="form-group">
+                            <label class="col-md-6" style="margin-right:0;" for="pref-search">Search by Seniority:</label>
+                            <input name="Senioritysearch" type="text" class="col-md-6 form-control input-sm" id="pref-search">
+                        </div><!-- form group [search by seniority] -->
+                        <div class="form-group">
+                            <label class="col-md-6 filter-col" style="margin-right:0;" for="pref-search">Search by Gender:</label>
+                            <input name="Gendersearch" type="text" class="col-md-6 form-control input-sm" id="pref-search">
+                        </div><!-- form group [search by gender] -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default filter-col">
+                                <span class="glyphicon glyphicon-record"></span> Save Settings
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-panel">
+            <span class="glyphicon glyphicon-cog"></span> Advanced Search
+        </button>
+        @Html.ActionLink("Add a new fan", "Create")
+    </div>
+</div>
+
+<p>
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Venteran)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Venteran)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

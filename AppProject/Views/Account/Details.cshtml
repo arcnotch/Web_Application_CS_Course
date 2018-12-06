@@ -1,0 +1,54 @@
+﻿@model AppProject.Models.Post
+
+@{
+    ViewBag.Title = "Watch Post details";
+}
+<!--Present the post as it is in the Blog page-->
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+                <article class="blogPost">
+                    <header>
+                        <h2>@Html.DisplayFor(modelItem => Model.Title)</h2>
+                        <p>Posted on @Html.DisplayFor(modelItem => Model.PublishedDate) by <a href="http://@Html.DisplayFor(modelItem => Model.Website)">@Html.DisplayFor(modelItem => Model.WrittenBy)</a> - <a href="#comments">@Html.DisplayFor(modelItem => Model.Comments.Count) comments</a></p>
+                    </header>
+                    <div>
+                        @{string[] perags = Model.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                            bool vid = true;
+                            bool pic = true;
+
+
+                            foreach (string per in perags)
+                            {
+                                if (pic == true)
+                                {
+                                    <p>@Html.DisplayFor(modelItem => per)</p>
+                                    <img src="@Html.DisplayFor(modelItem => Model.Image)" height="200" width="300" />
+                                    pic = false;
+                                    continue;
+                                }
+                                if (vid == true)
+                                {
+                                    <p>@Html.DisplayFor(modelItem => per)</p>
+                                    <video controls="controls">
+                                        <source src="@Html.DisplayFor(modelItem => Model.Video)" type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    vid = false;
+                                    continue;
+                                }
+                                <p>@Html.DisplayFor(modelItem => per)</p>
+                            }
+                        }
+
+
+                    </div>
+                </article>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

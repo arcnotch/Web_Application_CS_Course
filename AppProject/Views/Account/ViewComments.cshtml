@@ -1,0 +1,43 @@
+﻿@model AppProject.Models.Post
+
+@{
+    ViewBag.Title = "ViewComments";
+}
+
+<h2>Edit Comment</h2>
+
+<div class="container">
+    <div class="row col-md-12 custyle">
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Comment</th>
+                    <th>Details</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+
+            @foreach (var comment in Model.Comments)
+            {
+               <tr>
+                    <td>@Html.DisplayFor(modelItem => comment.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => comment.Text)<p></td>
+                    <td><a href="@Html.DisplayFor(modelItem => comment.Website)">@Html.DisplayFor(modelItem => comment.WrittenBy)</a> on <time> @Html.DisplayFor(modelItem => comment.PublishDate)</time></td>
+                   <td class="text-center"><a class='btn btn-info btn-xs' href="@Url.Content("~/Account/EditComment/"+@comment.CommentID)"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                   @if (Session["Username"].ToString() == "admin") 
+                   { <a href="@Url.Content("~/Account/DeleteComment/"+@comment.CommentID)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>}</td>
+               </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

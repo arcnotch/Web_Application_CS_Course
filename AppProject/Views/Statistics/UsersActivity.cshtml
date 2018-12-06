@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Honor Users";
+}
+
+<h2>Honor Users</h2>
+
+<table class="menutable">
+    <thread class="menuthread">
+        <tr class="menutr">
+            <th class="menuth">
+                Username
+            </th>
+            <th class="menuth">
+                Posts
+            </th>
+            <th class="menuth">
+                Comments
+            </th>
+        </tr>
+    </thread>
+    <tbody>
+        @foreach (var user in ViewBag.Results)
+        {
+            System.Type type = user.GetType();
+            string username = (string)type.GetProperty("UserName").GetValue(user, null);
+            int PostNumber = (int)type.GetProperty("PostNum").GetValue(user, null);
+            int CommentNumber = (int)type.GetProperty("CommentNum").GetValue(user, null);
+
+            <tr class="menutr">
+                <td class="menutd">
+
+                    @username
+                </td>
+                <td class="menutd">
+                    @PostNumber
+                </td>
+                <td class="menutd">
+                    @CommentNumber
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+
+

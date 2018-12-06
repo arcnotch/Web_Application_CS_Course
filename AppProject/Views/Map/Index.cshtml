@@ -1,0 +1,105 @@
+﻿@model IEnumerable<AppProject.Models.Mark>
+
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+<div id="map"></div>
+<script>
+    function initMap() { //Creates and displays the map with the marks from the db
+        var markers = @Html.Raw(ViewBag.Markers);
+        var data = markers[0] //First mark is the center of the map
+        var BlogCenter = new google.maps.LatLng(data.lat, data.lng); //Get the X,Y from the db
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            title: data.title, //Present the title of the mark
+            center: BlogCenter //Contains X,Y Cordinates
+        });
+
+        //Present the marks
+        for (i = 0; i < markers.length; i++) {
+            var data = markers[i]
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: data.title
+            });
+        }
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB638X0f3BId0OC5dP2i9q0vMQOo9FXLKU&callback=initMap">
+</script>
+
+<!-- Show the cordinates in a table -->
+<p/>
+    <table class="menutable">
+        <thread class="menuthread">
+            <tr class="menutr">
+                <th class="menuth">
+                    Title
+                </th>
+                <th class="menuth">
+                    Cordinates
+                </th>
+                <th class="menuth">
+                    Delete
+                </th>
+            </tr>
+        </thread>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr class="menutr">
+                    <td class="menutd">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td class="menutd">
+                        @Html.DisplayFor(modelItem => item.Lat),@Html.DisplayFor(modelItem => item.Lng)
+                    </td>
+                     <td class="menutd">
+                         @Html.ActionLink("Delete", "Delete/" + item.MarkID)
+                     </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</p>
+@Html.ActionLink("Add new mark", "Create")
+
+<!-- ============ Web Service ===========-->
+<div style="margin-top: 70px">
+    <div class="form-group" id="Domain">
+        <label for="DomainName">Domain information</label>
+        <div>
+            <input class="form-control" id="concat" placeholder="Example: ynet.co.il">
+        </div>
+    </div>
+    
+    <button id="changer" class="btn btn-primary">Get Data</button>
+    <br/><br />
+    <textarea class="form-control" rows="10" id="DomainResult"></textarea>
+</div>
+<!-- Get the wanted domain string from the client and send it as string to the server and wait to response (Ajax)-->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            console.log("ready!");
+            $('#changer').click(changeMe);
+        });
+        //Ajax
+        function changeMe() {
+            var concatText = $('#concat').val();
+            console.log(concatText);
+            $.get('/Map/Domain', { hostname: concatText }, function (data, status) {
+                console.log(status);
+                $('#DomainResult').html(data);
+            });
+        }
+    </script>
+}
+

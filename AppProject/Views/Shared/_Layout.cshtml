@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
+    @RenderSection("Styles", false)
+    @Scripts.Render("~/bundles/jquery")
+    <title>@ViewBag.Title - Movie Central Website</title>
+</head>
+<body>
+    <!--Facebook basic script-->
+    <div id="fb-root"></div>
+    <script>
+(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- Title -->
+    <header>
+        <h1 class="titlesytle">MOVIE CENTRAL</h1>
+    </header>
+
+    <nav>
+        <!-- Navigation -->
+        <ul>
+            <li><a class="nounderline" @Html.ActionLink("Blog", "Index", "Blog")</a></li>
+            <li><a @Html.ActionLink("Fan Club", "Index", "FanClub")</a></li>
+            <li><div class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+        Statistics <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu col-xs-12">
+        <li><a @Html.ActionLink("Post N' Comments", "Index", "Statistics")</a></li>
+        <li><a @Html.ActionLink("Comments", "Comments", "Statistics")</a></li>
+        <li><a @Html.ActionLink("Honor Users", "UsersActivity", "Statistics")</a></li>
+    </ul>
+</div></li>
+            <li><a @Html.ActionLink("Centers", "Index", "Map")</a></li>
+            <li><a @Html.ActionLink("Login", "Index", "Account")</a></li>
+        </ul>
+    </nav>
+    <section id="intro">
+        <!-- Introduction -->
+        <header>
+            <h2>Movie Central News</h2>
+        </header>
+        <!--Facebook API!-->
+        <p id="FacebookPost"></p> <!--Facebook post via Facebook's API:present the header from the last post on our facebook page-->
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '../Facebook/Index',
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        console.log(data);
+                        var FacebookPost = ('#FacebookPost');
+                        $(FacebookPost).empty();
+                        $(FacebookPost).append(data.message);
+                    }
+
+                });
+            });
+        </script>
+
+        <img src="@Url.Content("~/images/Movie_Central.png")"/> 
+    </section>
+    <div id="content">
+        <div class="container body-content" id="mainContent">
+                  <div id="fb-root"></div>
+                      <script>
+                          //Facebook API like and share buttons
+                        (function(d, s, id) {
+                         var js, fjs = d.getElementsByTagName(s)[0];
+                         if (d.getElementById(id)) return;
+                         js = d.createElement(s); js.id = id;
+                         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
+                         fjs.parentNode.insertBefore(js, fjs);
+                          }(document, 'script', 'facebook-jssdk'));
+                      </script>
+            <div class="fb-like" data-href="https://www.facebook.com/Movie-Central-Blog-284354625388382/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+            <div class="fb-follow" data-href="https://www.facebook.com/Movie-Central-Blog-284354625388382/" data-layout="button_count" data-size="small" data-show-faces="true"></div>
+            <br/><br/>
+            @RenderBody()
+            <hr />
+        </div>
+        <aside>
+            <section>
+                <header>
+                    <h3>Useful Links</h3>
+                </header>
+                <ul>
+
+                    <li><a>@Html.ActionLink("Become a Fan", "Create", "FanClub")</a></li>
+                    @if (Session["UserID"] == null)
+                    {
+                    <li><a>@Html.ActionLink("Become a Bloger", "Register", "Account")</a></li>
+                    }
+                    <li><a>@Html.ActionLink("Get Domain Info", "Index", "Map")</a></li>
+                </ul>
+            </section>
+            <section>
+                <header>
+                    <h3>About</h3>
+                </header>
+                <ul>
+                    The Application was written by:
+                    <li><a>Yarden Yerushalmi, 204326292</a></li>
+                    <li><a>Guy Binyamin, 200958098</a></li>
+                </ul>
+            </section>
+            <br/><br /> 
+            <div id="transDemo2">
+                <div class="hover">
+                    <!-- ======= Transaction ======== -->
+                    <img src="@Url.Content("~/images/facebook-icon-preview-1.png")" width="30" height="30">
+                </div>
+            </div>
+
+            <!-- Facebook post via Facebook's API: Show a  follow button and a spesific post-->
+            <div class="fb-follow" data-href="https://www.facebook.com/Movie-Central-Blog-284354625388382/" data-layout="button_count" data-size="small" data-show-faces="true"></div>
+            <div class="fb-post" data-href="https://www.facebook.com/permalink.php?story_fbid=284365782053933&amp;id=284354625388382" data-width="350" data-show-text="true"><blockquote cite="https://www.facebook.com/permalink.php?story_fbid=284365782053933&amp;id=284354625388382" class="fb-xfbml-parse-ignore"><p>The Movie Central Blog is a blog about movies. You can share your experiences, thoughts, opinions and interesting links about your favorite movies with people. It&#x2019;s just that simple.</p>Posted by <a href="https://www.facebook.com/Movie-Central-Blog-284354625388382/">Movie Central Blog</a> on&nbsp;<a href="https://www.facebook.com/permalink.php?story_fbid=284365782053933&amp;id=284354625388382">Saturday, September 30, 2017</a></blockquote></div>
+        </aside>
+    </div>
+    <footer>
+        <!-- Footer -->
+        <div>
+            <section id="about">
+                <header>
+                    <h3>Developed by</h3>
+                </header>
+                    <ul>
+                        <li>Yarden Yerushalmi, 204326292</li>
+                        <li>Guy Binyamin, 200958098</li>
+                        </ul>
+
+            </section>
+            <section id="blogroll">
+                <header>
+                    <h3>Statistics</h3>
+                </header>
+                <ul>
+                    <li><a @Html.ActionLink("Post N' Comments", "Index", "Statistics")</a></li>
+                    <li><a @Html.ActionLink("Comments", "Comments", "Statistics")</a></li>
+                    <li><a @Html.ActionLink("Honor Users", "UsersActivity", "Statistics")</a></li>
+                </ul>
+            </section>
+            <section id="popular">
+                <header>
+                    <h3>Popular</h3>
+                </header>
+                <ul>
+                    <li><a href="#">This is the title of a blog post</a></li>
+                    <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+                    <li><a href="#">Consectetur adipisicing elit, sed do eiusmod</a></li>
+                </ul>
+            </section>
+        </div>
+    </footer>
+
+        
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/main")
+        @RenderSection("scripts", required: false)
+</body>
+</html>

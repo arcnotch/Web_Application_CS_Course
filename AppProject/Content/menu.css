@@ -1,0 +1,71 @@
+table .menutable {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table tr .menutr {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
+
+table th .menuth,
+table td .menutd {
+    padding: .625em;
+    text-align: center;
+}
+
+table th .menuth {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+media screen and (max-width: 600px) {
+    table {
+        border: 0;
+    }
+
+        table thead .menuthread {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        table tr .menutr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td .menutd {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+
+        table td:before .menutd {
+            /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child .menutd {
+            border-bottom: 0;
+        }
+}
